@@ -13,3 +13,6 @@ Desktop.ini
 
 # Thumbnails
 ._*
+
+#VS Code Extensions
+*.vsix
