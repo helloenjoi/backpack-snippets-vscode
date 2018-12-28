@@ -1,0 +1,74 @@
+{
+    "Field-add-single": {
+        "prefix": "crud>addField",
+        "body": [
+            "\\$this->crud->addField(",
+            "    ${1:field});"
+        ],
+        "description": "add a field to both Create and Update operation"
+    },
+    "Field-add-operation": {
+        "prefix": "crud>addFieldOperation",
+        "body": [
+            "\\$this->crud->addField(",
+            "    ${1:field},",
+            "    '${2|create,update|}');"
+        ],
+        "description": "add a field only to the Update operation"
+    },
+    "Field-add-short": {
+        "prefix": "crud>addFieldShort",
+        "body": "\\$this->crud->addField('${1:db_Field_name}');",
+        "description": "shorthand: add a text field to both Create and Update operations"
+    },
+    "Field-add-multiple": {
+        "prefix": "crud>addFields",
+        "body": [
+            "\\$this->crud->addFields(",
+            "    ${1:field_1},",
+            "    ${2:field_2});"
+        ],
+        "description": "add multiple Fields"
+    },
+    "Field-remove-single": {
+        "prefix": "crud>remField",
+        "body": "\\$this->crud->removeField('${1:name}');",
+        "description": "remove a field from both operations"
+    },
+    "Field-remove-multiple": {
+        "prefix": "crud>remFieldMulti",
+        "body": "\\$this->crud->removeFields(['${1:Field_name_1}', '${2:Field_name_2'}]);",
+        "description": "remove multiple fields from both operations"
+    },
+    "Field-remove-all": {
+        "prefix": "crud>remFieldsAll",
+        "body": "\\$this->crud->removeAllFields();",
+        "description": "remove all fields from all operations"
+    },
+    "Field-modify": {
+        "prefix": "crud>modField",
+        "body": [
+            "\\$this->crud->modifyField(",
+            "    ${1:name},",
+            "    ${2:modifs_array});"
+        ],
+        "description": "change the attributes of a Field"
+    },
+    "Field-add-before": {
+        "prefix": "crud:addFieldBefore",
+        "body": [
+            "\\$this->crud->addField(",
+            "    ${1:field})->beforeField('name');"
+        ],
+        "description": "add this Field before a given Field"
+    },
+    "Field-add-after": {
+        "prefix": "crud>addFieldAfter",
+        "body": [
+            "\\$this->crud->addField(",
+            "    ${1:field})->afterField('name');"
+        ],
+        "description": "add this Field after a given Field"
+    }
+}
+

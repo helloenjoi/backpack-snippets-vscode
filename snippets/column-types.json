@@ -1,0 +1,321 @@
+{
+    "Column-array": {
+        "prefix": "col>name",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'array',",
+            "]"
+        ],
+        "description": "Enumerate an array stored in the db column as JSON."
+    },
+    "Column-array-count": {
+        "prefix": "col>array-count",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'array_count',",
+            "    // 'suffix' => 'options', // if you want it to show '2 options' instead of '2 items'",
+            "]"
+        ],
+        "description": "Count the items in an array stored in the db column as JSON."
+    },
+    "Column-boolean": {
+        "prefix": "col>boolean",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'boolean',",
+            "    // optionally override the Yes/No texts",
+            "    // 'options' => [0 => 'Active', 1 => 'Inactive']",
+            "]"
+        ],
+        "description": "Show Yes/No (or custom text) instead of 1/0."
+    },
+    "Column-check": {
+        "prefix": "col>check",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'check'",
+            "]"
+        ],
+        "description": "Show a favicon with a checked or unchecked box, depending on the given boolean."
+    },
+    "Column-checkbox": {
+        "prefix": "col>checkbox",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => ' <input type=\"checkbox\" class=\"crud_bulk_actions_main_checkbox\" style=\"width: 16px; height: 16px;\" />',",
+            "    'type' => 'checkbox',",
+            "    'priority' => 1,",
+            "    'searchLogic' => false,",
+            "    'orderable' => false,",
+            "    'visibleInModal' => false,",
+            "]"
+        ],
+        "description": ""
+    },
+    "Column-closure": {
+        "prefix": "col>closure",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'closure',",
+            "    'function' => function(\\$entry) {",
+            "        return 'Created on '.\\$entry->created_at;",
+            "    }",
+            "]"
+        ],
+        "description": "Show custom HTML based on a closure you specify in your EntityCrudController. Please note this column does not escape HTML before rendering. You need to do that yourself, if you consider it necessary."
+    },
+    "Column-date": {
+        "prefix": "col>date",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'date',",
+            "    // 'format' => 'l j F Y', // use something else than the base.default_date_format config value",
+            "]"
+        ],
+        "description": "The date column will show a localized date in the default date format (as specified in the config/backpack/base.php file), whether the attribute is casted as date in the model or not:"
+    },
+    "Column-datetime": {
+        "prefix": "col>datetime",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'datetime',",
+            "    // 'format' => 'l j F Y H:i:s', // use something else than the base.default_datetime_format config value",
+            "]"
+        ],
+        "description": "The date column will show a localized datetime in the default datetime format (as specified in the config/backpack/base.php file), whether the attribute is casted as datetime in the model or not:"
+    },
+    "Column-image": {
+        "prefix": "col>image",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'image',",
+            "    // 'prefix' => 'folder/subfolder/',",
+            "    // optional width/height if 25px is not ok with you",
+            "    // 'height' => '30px',",
+            "    // 'width' => '30px',",
+            "]"
+        ],
+        "description": "Show a thumbnail image."
+    },
+    "Column-model_function": {
+        "prefix": "col>model_function",
+        "body": [
+            "[",
+            "   // run a function on the CRUD model and show its return value",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'model_function',",
+            "   'function_name' => 'getSlugWithLink', // the method in your Model",
+            "   // 'function_parameters' => [\\$one, \\$two], // pass one/more parameters to that method",
+            "   // 'limit' => 100, // Limit the number of characters shown",
+            "]"
+        ],
+        "description": "The model_function column will output a function on your main model."
+    },
+    "Column-model_function_attribute": {
+        "prefix": "col>model_function_attribute",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'model_function_attribute',",
+            "   'function_name' => 'getSlugWithLink', // the method in your Model",
+            "   // 'function_parameters' => [\\$one, \\$two], // pass one/more parameters to that method",
+            "   'attribute' => 'route',",
+            "   // 'limit' => 100, // Limit the number of characters shown",
+            "]"
+        ],
+        "description": "If the function you're trying to use returns an object, not a string, you can use the model_function_attribute column, which will output the attribute on the function result."
+    },
+    "Column-multidimensional_array": {
+        "prefix": "col>multidim_array",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'multidimensional_array',",
+            "   'visible_key' => 'name' // The key to the attribute you would like shown in the enumeration",
+            "]"
+        ],
+        "description": "Enumerate the values in a multidimensional array, stored in the db as JSON."
+    },
+    "Column-number": {
+        "prefix": "col>number",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'number',",
+            "   // 'prefix' => '\\$',",
+            "   // 'suffix' => ' EUR',",
+            "   // 'decimals' => 2,",
+            "]"
+        ],
+        "description": "The text column will just output the number value of a db column (or model attribute). Its definition is:"
+    },
+    "Column-radio": {
+        "prefix": "col>radio",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type'        => 'radio',",
+            "    'options'     => [",
+            "                        0 => 'Draft',",
+            "                        1 => 'Published'",
+            "                    ]",
+            "]"
+        ],
+        "description": "Show a pretty text instead of the database value, according to an associative array. Usually used as a column for the 'radio' field type."
+    },
+    "Column-row_number": {
+        "prefix": "col>row_number",
+        "body": [
+            "[",
+            "    'name' => '${1:run_number}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'label' => '#',",
+            "    'orderable' => false,",
+            "]"
+        ],
+        "description": "Show the row number (index). The number depends strictly on the result set (x records per page, pagination, search, filters, etc). It does not get any information from the database."
+    },
+    "Column-text": {
+        "prefix": "col>text",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    // 'prefix' => 'Name: ',",
+            "    // 'suffix' => '(user)',",
+            "    // 'limit' => 120, // character limit; default is 50;",
+            "]"
+        ],
+        "description": "The text column will just output the text value of a db column (or model attribute)."
+    },
+    "Column-text-relationship": {
+        "prefix": "col>text_rel",
+        "body": [
+            "[",
+            "    'name' => 'parent.${1:child}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    // 'prefix' => 'Name: ',",
+            "    // 'suffix' => '(user)',",
+            "    // 'limit' => 120, // character limit; default is 50;",
+            "]"
+        ],
+        "description": "The text column type can also show the attribute of a 1-1 relationship using dot notation"
+    },
+    "Column-select": {
+        "prefix": "col>select",
+        "body": [
+            "[ // 1-n relationship",
+            "    'name' => '${1:parent}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'select',",
+            "   'entity' => 'parent', // the method that defines the relationship in your Model",
+            "   'attribute' => 'name', // foreign key attribute that is shown to user",
+            "   'model' => 'App\\Models\\Category', // foreign key model",
+            "]"
+        ],
+        "description": "The select column will output its connected entity. Used for relationships like hasOne() and belongsTo(). Its name and definition is the same as for the select field type:"
+    },
+    "Column-select_from_array": {
+        "prefix": "col>select_from_array",
+        "body": [
+            "[ // select_from_array",
+            "    'name' => '${1:status}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'select_from_array',",
+            "    'options' => [‘draft’ => ‘Draft (invisible)’, ‘published’ => ‘Published (visible)’],",
+            "]"
+        ],
+        "description": "Show a particular text depending on the value of the attribute."
+    },
+    "Column-select_multiple": {
+        "prefix": "col>select_multiple",
+        "body": [
+            "[",
+            "   // n-n relationship (with pivot table)",
+            "    'name' => '${1:tags}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'select_multiple',",
+            "   'entity' => 'tags', // the method that defines the relationship in your Model",
+            "   'attribute' => 'name', // foreign key attribute that is shown to user",
+            "   'model' => 'App\\Models\\Tag', // foreign key model",
+            "]"
+        ],
+        "description": "The select_multiple column will output a comma separated list of its connected entities. Used for relationships like hasMany() and belongsToMany(). Its name and definition is the same as the select_multiple field:"
+    },
+    "Column-table": {
+        "prefix": "col>table",
+        "body": [
+            "[",
+            "    'name' => '${1:features}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'table', ",
+            "    'columns' => [",
+            "        'name' => 'Name',",
+            "        'description' => 'Description',",
+            "        'price' => 'Price',",
+            "        'obs' => 'Observations'",
+            "    ]",
+            "]"
+        ],
+        "description": "The table column will output a condensed table, when used on an attribute that stores a JSON array or object"
+    },
+    "Column-upload_multiple": {
+        "prefix": "col>upload_multi",
+        "body": [
+            "[",
+            "    'name' => '${1:photos}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'upload_multiple',",
+            "    // 'disk' => 'public', // filesystem disk if you're using S3 or something custom",
+            "]"
+        ],
+        "description": "The table column will output a list of files and links, when used on an attribute that stores a JSON array of file paths. It is meant to be used inside the show functionality (not list, though it also works there), to preview files uploaded with the upload_multiple field type."
+    },
+    "Column-video": {
+        "prefix": "col>video",
+        "body": [
+            "[",
+            "    'name' => '${1:videos}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "   'type' => 'video',",
+            "]"
+        ],
+        "description": "Display a small screenshot for a Youtube or Vimeo video, stored in the database as JSON using the 'video' field type."
+    },
+    "Column-view": {
+        "prefix": "col>view",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', // Table column heading",
+            "    'type' => 'view',",
+            "    'view' => 'package::columns.column_type_name', // or path to blade file",
+            "]"
+        ],
+        "description": "Display any custom column type you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish the views."
+    }
+}
+
+

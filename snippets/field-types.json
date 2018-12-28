@@ -1,0 +1,805 @@
+{    
+    "Field-options": {
+        "prefix": "field>_options",
+        "body": [
+            "    'prefix' => '{$1:prefix}',",
+            "    'suffix' => '{$2:suffix}',",
+            "    'default'    => '{$3:default}', // set a default value",
+            "    'hint'       => '{$4:Some hint text}', // helpful text, shows up after the input",
+            "    // change the HTML attributes of your input",
+            "    'attributes' => [",
+            "        'placeholder' => '{$5:Some text when empty}',",
+            "        'class' => '{$6:form-control some-class}',",
+            "        'readonly'=>'readonly',",
+            "        'disabled'=>'disabled',",
+            "    ]",
+            "    // change the HTML attributes for the field wrapper - mostly for resizing fields",
+            "    'wrapperAttributes' => [",
+            "        'class' => '{$7:form-group col-md-12}'"
+        ],
+        "description": "There are a few optional attributes on all default field types, that you can use to easily achieve a few common cutomizations"
+    },
+    "Field-address-algolia": {
+        "prefix": "field>address-algolia",
+        "body": [
+            "[",
+            "    'name' => 'address',",
+            "    'label' => 'Address',",
+            "    'type' => 'address_algolia',",
+            "    // optional",
+            "    'store_as_json' => true",
+            "]"
+        ],
+        "description": "Use Algolia Places autocomplete to help users type their address faster. With the store_as_json option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the address string."
+    },
+    "Field-address-google": {
+        "prefix": "field>address-google",
+        "body": [
+            "[",
+            "    'name' => 'address',",
+            "    'label' => 'Address',",
+            "    'type' => 'address_google',",
+            "    // optional",
+            "    'store_as_json' => true",
+            "    // dont forget to your API key in config/services.php",
+            "]"
+        ],
+        "description": "Use Google Places Search to help users type their address faster. With the store_as_json option, it will store the address, postcode, city, country, latitude and longitude in a JSON in the database. Without it, it will just store the complete address string."
+    },
+
+    "Field-browse": {
+        "prefix": "field>browse",
+        "body": [
+            "[",
+            "    'name' => '${1:file}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'browse',",
+            "]"
+        ],
+        "description": "If you've chosen to use elFinder upon Backpack installation, this button allows the admin to open elFinder and select a file from there."
+    },
+    "Field-browse-multiple": {
+        "prefix": "field>browse-multi",
+        "body": [
+            "[",
+            "    'name' => '${1:files}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'browse_multiple',",
+            "    // 'multiple' => true, // enable/disable the multiple selection functionality",
+            "    // 'mime_types' => null, // visible mime prefixes; ex. ['image'] or ['application/pdf']",
+            "]"
+        ],
+        "description": "Open elFinder and select multiple file from there."
+    },
+    "Field-base64_image": {
+        "prefix": "field>base64_img",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'base64_image',",
+            "    'filename' => 'image_filename', // set to null if not needed",
+            "    'type' => 'base64_image',",
+            "    'aspect_ratio' => 1, // set to 0 to allow any aspect ratio",
+            "    'crop' => true, // set to true to allow cropping, false to disable",
+            "    'src' => NULL, // null to read straight from DB, otherwise set to model accessor function",
+            "]"
+        ],
+        "description": "Upload an image and store it in the database as Base64."
+    },
+    "Field-checkbox": {
+        "prefix": "field>chkbox",
+        "body": [
+            "[",
+            "    'name' => '${1:active}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'checkbox',",
+            "]"
+        ],
+        "description": "Checkbox for true/false."
+    },
+    "Field-checklist": {
+        "prefix": "field>chklist",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'checklist',",
+            "    'entity'    => 'roles',",
+            "    'attribute' => 'name',",
+            "    'model'     => 'Backpack\\PermissionManager\\app\\Models\\Role',",
+            "    'pivot'     => true,",
+            "]"
+        ],
+        "description": "Show a checklist allowing multiple selections"
+    },
+    "Field-checklist-dependency": {
+        "prefix": "field>chklist-dep",
+        "body": [
+            "[ // two interconnected entities",
+            "    'name' => '${1:roles_and_permissions}', // the methods that defines the relationship in your Model",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type'              => 'checklist_dependency',",
+            "    'field_unique_name' => '${2:user_role_permission}',",
+            "    'subfields'         => [",
+            "        'primary' => [",
+            "            'name'             => '${3:roles}', // the method that defines the relationship in your Model",
+            "            'label'            => '${3/(.*)$/${1:/capitalize}/}',",
+            "            'entity'           => 'roles', // the method that defines the relationship in your Model",
+            "            'entity_secondary' => 'permissions', // the method that defines the relationship in your Model",
+            "            'attribute'        => 'name', // foreign key attribute that is shown to user",
+            "            'model'            => 'Backpack\\PermissionManager\\app\\Models\\Role', // foreign key model",
+            "            'pivot'            => true, // on create&update, do you need to add/delete pivot table entries?]",
+            "            'number_columns'   => 3, //can be 1,2,3,4,6",
+            "        ],",
+            "        'secondary' => [",
+            "            'name'           => '${4:permissions}', // the method that defines the relationship in your Model",
+            "            'label'          => '${4/(.*)$/${1:/capitalize}/}',",
+            "            'entity'         => 'permissions', // the method that defines the relationship in your Model",
+            "            'entity_primary' => 'roles', // the method that defines the relationship in your Model",
+            "            'attribute'      => 'name', // foreign key attribute that is shown to user",
+            "            'model'          => 'Backpack\\PermissionManager\\app\\Models\\Permission', // foreign key model",
+            "            'pivot'          => true, // on create&update, do you need to add/delete pivot table entries?]",
+            "            'number_columns' => 3, //can be 1,2,3,4,6",
+            "        ],",
+            "    ],",
+            "]"
+        ],
+        "description": ""
+    },
+    "Field-ckeditor": {
+        "prefix": "field>ckeditor",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'ckeditor',",
+            "    // optional:",
+            "    'extra_plugins' => ['oembed', 'widget']",
+            "    'options' => [",
+            "    'autoGrow_minHeight' => 200,",
+            "    'autoGrow_bottomSpace' => 50,",
+            "    'removePlugins' => 'resize,maximize',",
+            "    ]",
+            "]"
+        ],
+        "description": "Show a wysiwyg CKEditor to the user."
+    },
+    "Field-color": {
+        "prefix": "field>color",
+        "body": [
+            "[",
+            "    'name' => '${1:color}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'color',",
+            "]"
+        ],
+        "description": "Show an html 5 color picker"
+    },
+    "Field-color-picker": {
+        "prefix": "field>name",
+        "body": [
+            "[",
+            "    'name' => '${1:color}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'color_picker',",
+            "    'color_picker_options' => ['customClass' => 'custom-class']",
+            "]"
+        ],
+        "description": ""
+    },
+    "Field-custom-html": {
+        "prefix": "field>html",
+        "body": [
+            "[",
+            "    'name' => '${1:separator}',",
+            "    'type' => 'custom_html',",
+            "    'value' => '<hr>', //any valid html here",
+            "]"
+        ],
+        "description": "Allows you to insert custom HTML in the create/update forms. Usually used in forms with a lot of fields, to separate them using h1-h5, hr, etc, but can be used for any HTM"
+    },
+    "Field-date": {
+        "prefix": "field>date",
+        "body": [
+            "[",
+            "    'name' => '${1:birthday}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'date',",
+            "]"
+        ],
+        "description": "Show an HTML5 Date Picker popup"
+    },
+    "Field-date-picker": {
+        "prefix": "field>date-pick",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'date_picker',",
+            "    // optional:",
+            "    'date_picker_options' => [",
+            "        'todayBtn' => true,",
+            "        'format' => 'dd-mm-yyyy',",
+            "        'language' => 'fr'",
+            "    ],",
+            "]"
+        ],
+        "description": "Show a pretty Bootstrap (Jquery) Datepicker. Please note it is recommended that you use attribute casting on your model (cast to date)."
+    },
+    "Field-date-range": {
+        "prefix": "field>name",
+        "body": [
+            "[",
+            "    'name' => '${1:event}_date_range', // a unique name for this field",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/} Date Range',",
+            "    'type' => 'date_range',",
+            "    'start_name' => 'start_date', // the db column that holds the start_date",
+            "    'end_name' => 'end_date', // the db column that holds the end_date",
+            "    // OPTIONALS",
+            "    'start_default' => '1991-03-28 01:01', // default value for start_date",
+            "    'end_default' => '1991-04-05 02:00', // default value for end_date",
+            "    'date_range_options' => [ // options sent to daterangepicker.js",
+            "        'timePicker' => true,",
+            "        'locale' => ['format' => 'DD/MM/YYYY HH:mm']",
+            "    ]",
+            "]"
+        ],
+        "description": "Show a DateRangePicker and let the user choose a start date and end date."
+    },
+    "Field-datetime": {
+        "prefix": "field>datetime",
+        "body": [
+            "[",
+            "    'name' => '${1:start}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'datetime',",
+            "]"
+        ],
+        "description": "if you're using datetime attribute casting on your model, you also need a mutator inside your model otherwise the input's datetime-local formal will cause some errors."
+    },
+    "Field-datetime-picker": {
+        "prefix": "field>name",
+        "body": [
+            "[",
+            "    'name' => '${1:start}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'datetime_picker',",
+            "    // optional:",
+            "    'datetime_picker_options' => [",
+            "        'format' => 'DD/MM/YYYY HH:mm',",
+            "        'language' => 'fr'",
+            "    ],",
+            "    'allows_null' => true,",
+            "    // 'default' => '2017-05-12 11:59:59',",
+            "]"
+        ],
+        "description": "Show a Bootstrap Datetime Picker"
+    },
+    "Field-email": {
+        "prefix": "field>email",
+        "body": [
+            "[",
+            "    'name' => '${1:email}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'email',",
+            "]"
+        ],
+        "description": "Show an HTML5 Email input type"
+    },
+    "Field-enum": {
+        "prefix": "field>enum",
+        "body": [
+            "[",
+            "    'name' => '${1:status}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'enum',",
+            "]"
+        ],
+        "description": "Show a select with the values in the database for that ENUM field. Requires that the db column type is 'enum'. If the db column allows null, the ' - ' value will also show up in the select. PLEASE NOTE the enum field only works for MySQL databases."
+    },
+    "Field-hidden": {
+        "prefix": "field>hidden",
+        "body": [
+            "[",
+            "    'name' => '${1:status}',",
+            "    'type' => 'hidden',",
+            "]"
+        ],
+        "description": "Include a field, but hide it to the user."
+    },
+    "Field-icon-picker": {
+        "prefix": "field>icon",
+        "body": [
+            "[",
+            "    'name' => '${1:icon}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'icon_picker',",
+            "    'iconset' => 'fontawesome' // options: fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, materialdesign",
+            "]"
+        ],
+        "description": "Show an icon picker. Supported icon sets are fontawesome, glyphicon, ionicon, weathericon, mapicon, octicon, typicon, elusiveicon, material design as per the jQuery plugin, bootstrap-iconpicker. The stored value will be the class name (ex: fa-home). Your input will look like button, with a dropdown where the user can search or pick an icon"
+    },
+    "Field-image": {
+        "prefix": "field>image",
+        "body": [
+            "[",
+            "    'name' => '${1:image}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'image',",
+            "    'upload' => true,",
+            "    'crop' => true, // set to true to allow cropping, false to disable",
+            "    'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio",
+            "    // 'disk' => 's3_bucket', // in case you need to show images from a different disk",
+            "    // 'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;",
+            "    // Set a mutator on your Model, so that the file can be stored. You can use the boilerplate code and modify it to match your use case.",
+            "    // The uploaded images are not deleted for you. If you're NOT using soft deletes on that model and want the image to be dleted at the same time the entry is, you will need to specify that in your Model's deleting event",
+            "]"
+        ],
+        "description": "Upload an image and store it on the disk. "
+    },
+    "Field-month": {
+        "prefix": "field>month",
+        "body": [
+            "[",
+            "    'name' => '${1:month}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'month',",
+            "]"
+        ],
+        "description": "Show an HTML month field"
+    },
+    "Field-number": {
+        "prefix": "field>number",
+        "body": [
+            "[",
+            "    'name' => '${1:number}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'number',",
+            "    // optionals",
+            "    // 'attributes' => ['step' => 'any'], // allow decimals",
+            "    // 'prefix' => '\\$',",
+            "    // 'suffix' => '.00',",
+            "]"
+        ],
+        "description": "Show an HTML number field"
+    },
+    "Field-link": {
+        "prefix": "field>link",
+        "body": [
+            "[",
+            "    'name' => '${1:type}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'page_or_link',",
+            "    'page_model' => '\\Backpack\\PageManager\\app\\Models\\Page'",
+            "]"
+        ],
+        "description": "Select an existing page from PageManager or an internal or external link. It’s used in the MenuManager package, but can be used in any other model just as well."
+    },
+    "Field-password": {
+        "prefix": "field>password",
+        "body": [
+            "[",
+            "    'name' => '${1:password}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'password',",
+            "]"
+        ],
+        "description": "Show an HTML password field"
+    },
+    "Field-radio": {
+        "prefix": "field>radio",
+        "body": [
+            "[",
+            "    'name' => '${1:name}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'radio',",
+            "    'options' => [ // the key will be stored in the db, the value will be shown as label; ",
+            "        0 => 'Draft',",
+            "        1 => 'Published'",
+            "    ],",
+            "    // optional",
+            "    //'inline'      => false, // show the radios all on the same line?",
+            "]"
+        ],
+        "description": "Show radios according to an associative array you give the input and let the user pick from them. You can choose for the radio options to be displayed inline or one-per-line."
+    },
+    "Field-range": {
+        "prefix": "field>range",
+        "body": [
+            "[",
+            "    'name' => '${1:range}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'range',",
+            "]"
+        ],
+        "description": ""
+    },
+    "Field-select": {
+        "prefix": "field>select",
+        "body": [
+            "[",
+            "    'name' => '${1:category}_id', // the db column for the foreign key",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => 'name', // foreign key attribute that is shown to user",
+            "    'model' => 'App\\Models\\Tag',",
+            "    // optional",
+            "    'options'   => (function (\\$query) {",
+            "        return \\$query->orderBy('name', 'ASC')->where('depth', 1)->get();",
+            "    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select",
+            "]"
+        ],
+        "description": "(1-n relationship). Show a Select with the names of the connected entity and let the user select one of them. Your relationships should already be defined on your models as hasOne() or belongsTo()."
+    },
+    "Field-select-grouped": {
+        "prefix": "field>select-grouped",
+        "body": [
+            "[",
+            "    'name' => '${1:article}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/} grouped by ${2/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select_grouped',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:title}', // foreign key attribute that is shown to user",
+            "    'group_by' => '${3:category}', // the relationship to entity you want to use for grouping",
+            "    'group_by_attribute' => '${4:name}', // the attribute on related model, that you want shown",
+            "    'group_by_relationship_back' => '$1s', // relationship from related model back to this model",
+            "]"
+        ],
+        "description": "Display a select where the options are grouped by a second entity (like Categories)."
+    },
+    "Field-select2": {
+        "prefix": "field>select2",
+        "body": [
+            "[",
+            "    'name' => '${1:category}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    'model' => '${3:App\\Models\\Tag}', // foreign key model",
+            "    // optional",
+            "    'options'   => (function (\\$query) {",
+            "        return \\$query->orderBy('$2', 'ASC')->where('depth', 1)->get();",
+            "    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select",
+            "]"
+        ],
+        "description": "Works just like the SELECT field, but prettier. Shows a Select2 with the names of the connected entity and let the user select one of them. Your relationships should already be defined on your models as hasOne() or belongsTo()."
+    },
+    "Field-select-multiple": {
+        "prefix": "field>select_multi",
+        "body": [
+            "[",
+            "    'name' => '${1:tags}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select_multiple',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    'model' => '${3:App\\Models\\Tag}', // foreign key model",
+            "    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?",
+            "    // optional",
+            "    'options'   => (function (\\$query) {",
+            "        return \\$query->orderBy('$2', 'ASC')->where('depth', 1)->get();",
+            "    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select",
+            "]"
+        ],
+        "description": "Show a Select with the names of the connected entity and let the user select any number of them. Your relationships should already be defined on your models as hasMany() or belongsToMany()."
+    },
+    "Field-select2-multiple": {
+        "prefix": "field>select2-multi",
+        "body": [
+            "[",
+            "    'name' => '${1:tags}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2_multiple',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    'model' => '${3:App\\Models\\Tag}', // foreign key model",
+            "    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?",
+            "    // 'select_all' => true, // show Select All and Clear buttons?",
+            
+            "    // optional",
+            "    'options'   => (function (\\$query) {",
+            "        return \\$query->orderBy('$2', 'ASC')->where('depth', 1)->get();",
+            "    }), // force the related options to be a custom query, instead of all(); you can use this to filter the results show in the select",         
+            "]"
+        ],
+        "description": "JQuery: Works just like the SELECT MULTIPLE field, but prettier. Show a Select2 with the names of the connected entity and let the user select any number of them. Your relationships should already be defined on your models as hasMany() or belongsToMany()."
+    },
+    "Field-select2-nested": {
+        "prefix": "field>select-nested",
+        "body": [
+            "[",
+            "    'name' => '${1:category}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2_nested',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    // 'model' => '${3:App\\Models\\Category}', // force foreign key model",
+            "]"
+        ],
+        "description": "Display a select2 with the values ordered hierarchically and indented, for an entity where you use Reorder. Please mind that the connected model needs a children() relationship pointing to itself; the usual lft, rgt, depth attributes;"
+    },
+    "Field-select2-grouped": {
+        "prefix": "field>select2-grouped",
+        "body": [
+            "[",
+            "    'name' => '${1:article}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/} grouped by ${2/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select_grouped',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:title}', // foreign key attribute that is shown to user",
+            "    'group_by' => '${3:category}', // the relationship to entity you want to use for grouping",
+            "    'group_by_attribute' => '${4:name}', // the attribute on related model, that you want shown",
+            "    'group_by_relationship_back' => '$1s', // relationship from related model back to this model",
+            "]"
+        ],
+        "description": "Display a select2 where the options are grouped by a second entity (like Categories)."
+    },
+    "Field-select-order": {
+        "prefix": "field>select-order",
+        "body": [
+            "[",
+            "    'name' => '${1:featured}', //this field needs to be cast as array in your model",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select_and_order',",
+            "    'options' => [",
+            "        1 => 'Option 1',",
+            "        2 => 'Option 2'",
+            "    ]",
+            "    // Alternative option",
+            "    // 'options' => Product::get()->pluck('title','id')->toArray(),",
+            "]"
+        ],
+        "description": "Display items on two columns and let the user drag&drop between them to choose which items are selected an which are not, and reorder the selected items with drag&drop. Its definition is exactly as select_from_array, but the value will be stored as JSON in the database: ['3','5','7','6'], so it needs the attribute to be cast to array on the Model."
+    },
+    "Field-select-array": {
+        "prefix": "field>select-array",
+        "body": [
+            "[",
+            "    'name' => '${1:template}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select_from_array',",
+            "    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],",
+            "    'allows_null' => false,",
+            "    'default' => 'one',",
+            "    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;",
+            "]"
+        ],
+        "description": "Display a select with the values you want."
+    },
+    "Field-select2-array": {
+        "prefix": "field>select2-array",
+        "body": [
+            "[",
+            "    'name' => '${1:template}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2_from_array',",
+            "    'options' => [‘one’ => ‘One’, ‘two’ => ‘Two’],",
+            "    'allows_null' => false,",
+            "    'default' => 'one',",
+            "    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;",
+            "]"
+        ],
+        "description": "Display a select2 with the values you want:"
+    },
+    "Field-select2-ajax": {
+        "prefix": "field>select2-ajax",
+        "body": [
+            "[",
+            "    'name' => '${1:category}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2_from_ajax',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    'model' => '${3:App\\Models\\Category}', // foreign key model",
+            "    'data_source' => url('api/$1'), // url to controller search function (with /{id} should return model)",
+            "    'placeholder' => 'Select a ${1/(.*)$/${1:/capitalize}/}', // placeholder for the select",
+            "    'minimum_input_length' => 2, // minimum characters to type before querying results",
+            "    // 'dependencies' => [‘$1’], // when a dependency changes, this select2 is reset to null",
+            "    // ‘method' => ‘GET’, // optional - HTTP method to use for the AJAX call (GET, POST)",
+            "    // DONT FORGET, you also need to create a controller and routes for the data_source above",
+            "]"
+        ],
+        "description": "Display a select2 that takes its values from an AJAX call."
+    },
+    "Field-select2-ajax-multiple": {
+        "prefix": "field>select2-ajax-multi",
+        "body": [
+            "[",
+            "    'name' => '${1:city}_id',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'select2_from_ajax_multiple',",
+            "    'entity' => '$1', // the method that defines the relationship in your Model",
+            "    'attribute' => '${2:name}', // foreign key attribute that is shown to user",
+            "    'model' => '${3:App\\Models\\City}', // foreign key model",
+            "    'data_source' => url('api/$1'), // url to controller search function (with /{id} should return model)",
+            "    'placeholder' => 'Select a ${1/(.*)$/${1:/capitalize}/}', // placeholder for the select",
+            "    'minimum_input_length' => 2, // minimum characters to type before querying results",
+            "    'pivot' => true, // on create&update, do you need to add/delete pivot table entries?",
+            "    // DONT FORGET, you also need to create a controller and routes for the data_source above",
+            "]"
+        ],
+        "description": "Display a select2 that takes its values from an AJAX call. Allows for multiple items to be selected. The only difference in the field definition is the 'pivot' attribute"
+    },
+    "Field-simplemde": {
+        "prefix": "field>simplemde",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'simplemde',",
+            "    // optional",
+            "    // 'simplemdeAttributes' => [",
+            "    //   'promptURLs' => true,",
+            "    //   'status' => false,",
+            "    //   'spellChecker' => false,",
+            "    //   'forceSync' => true,",
+            "    // ],",
+            "    // 'simplemdeAttributesRaw' => some_json",
+            "]"
+        ],
+        "description": "Show a SimpleMDE markdown editor to the user."
+    },
+    "Field-summernote": {
+        "prefix": "field>summernote",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'summernote',",
+            "    // 'options' => [], // easily pass parameters to the summernote JS initialization",
+            "]"
+        ],
+        "description": "Show a Summernote wysiwyg editor to the user."
+    },
+    "Field-table": {
+        "prefix": "field>table",
+        "body": [
+            "[",
+            "    'name' => '${1:options}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'table',",
+            "    'entity_singular' => 'option', // used on the 'Add X' button",
+            "    'columns' => [",
+            "        'name' => 'Name',",
+            "        'desc' => 'Description',",
+            "        'price' => 'Price'",
+            "    ],",
+            "    'max' => 5, // maximum rows allowed in the table",
+            "    'min' => 0, // minimum rows allowed in the table",
+            "]"
+        ],
+        "description": "Show a table with multiple inputs per row and store the values as JSON in the database. The user can add more rows and reorder the rows as they please."
+    },
+    "Field-text": {
+        "prefix": "field>text",
+        "body": [
+            "[",
+            "    'name' => '${1:title}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'text',",
+            "]"
+        ],
+        "description": "The basic field type, all it needs is the two mandatory parameters: name and label."
+    },
+    "Field-textarea": {
+        "prefix": "field>textarea",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'textarea',",
+            "]"
+        ],
+        "description": "Show a textarea to the user."
+    },
+    "Field-time": {
+        "prefix": "field>time",
+        "body": [
+            "[",
+            "    'name' => '${1:start}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'time',",
+            "]"
+        ],
+        "description": "show an html 5 time field"
+    },
+    "Field-tinymce": {
+        "prefix": "field>tinymce",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'tinymce',",
+            "]"
+        ],
+        "description": "Show a wysiwyg (TinyMCE) to the user."
+    },
+    "Field-upload": {
+        "prefix": "field>upload",
+        "body": [
+            "[",
+            "    'name' => '${1:image}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'upload',",
+            "    'upload' => true,",
+            "    'disk' => '${2:uploads}' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;",
+            "    // DONT FORGET, In order to save/update/delete the file from disk&db, we need to create a mutator on your model.",
+            "]"
+        ],
+        "description": ""
+    },
+    "Field-upload-multiple": {
+        "prefix": "field>upload-multiple",
+        "body": [
+            "[",
+            "    'name' => '${1:photos}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'upload_multiple',",
+            "    'upload' => true,",
+            "    'disk' => '${2:uploads}' // if you store files in the /public folder, please ommit this; if you store them in /storage or S3, please specify it;",
+            "    // DONT FORGET, In order to save/update/delete the file from disk&db, we need to create a mutator on your model.",
+            "    // DONT FORGET, Since the filenames are stored in the database as a JSON array, use attribute casting on your model.",
+            "]"
+        ],
+        "description": "Show a file input to the user."
+    },
+    "Field-url": {
+        "prefix": "field>url",
+        "body": [
+            "[",
+            "    'name' => '${1:link}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'url',",
+            "]"
+        ],
+        "description": "Show a URL input to the user."
+    },
+    "Field-video": {
+        "prefix": "field>video",
+        "body": [
+            "[",
+            "    'name' => '${1:video}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}', //Link to video file on Youtube or Vimeo",
+            "    'type' => 'video',",
+            "    // DONT FORGET, Since the filenames are stored in the database as a JSON array, use attribute casting on your model.",
+            "]"
+        ],
+        "description": "Allow the user to paste a Youtube/Vimeo link. That will get the video information with Javascript and store it as a JSON in the database."
+    },
+    "Field-view": {
+        "prefix": "field>view",
+        "body": [
+            "[",
+            "    'name' => '${1:custom-ajax-button}',",
+            "    'type' => 'view',",
+            "    'view' => 'partials/$1'",
+            "]"
+        ],
+        "description": ""
+    },
+    "Field-week": {
+        "prefix": "field>week",
+        "body": [
+            "[",
+            "    'name' => '${1:first_week}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'week',",
+            "]"
+        ],
+        "description": "Show an HTML5 week calendar to the user."
+    },
+    "Field-wysiwyg": {
+        "prefix": "field>wysiwyg",
+        "body": [
+            "[",
+            "    'name' => '${1:description}',",
+            "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+            "    'type' => 'wysiwyg',",
+            "]"
+        ],
+        "description": "Show a wysiwyg (CKEditor) to the user."
+    }
+}

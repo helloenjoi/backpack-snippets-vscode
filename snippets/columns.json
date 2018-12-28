@@ -1,0 +1,89 @@
+{
+    "Column-add-single": {
+        "prefix": "crud>addColumn",
+        "body": [
+            "\\$this->crud->addColumn(",
+            "    ${1:col});"
+        ],
+        "description": "add a column, at the end of the stack"
+    },
+    "Column-add-multiple": {
+        "prefix": "crud>addColumns",
+        "body": [
+            "\\$this->crud->addColumns(",
+            "    ${1:col_1},",
+            "    ${2:col_2});"
+        ],
+        "description": "add multiple columns, at the end of the stack"
+    },
+    "Column-remove-single": {
+        "prefix": "crud>removeColumn",
+        "body": "\\$this->crud->removeColumn('${1:column_name}');",
+        "description": "remove a column from the stack"
+    },
+    "Column-remove-multiple": {
+        "prefix": "crud>removeColumns",
+        "body": "\\$this->crud->removeColumns(['${1:column_name_1}', '${2:column_name_2}']);",
+        "description": "remove an array of columns from the stack"
+    },
+    "Column-modify": {
+        "prefix": "crud>modifyColumn",
+        "body": [
+            "\\$this->crud->modifyColumn(",
+            "    ${1:name},",
+            "    ${2:modifs_array});"
+        ],
+        "description": "change the attributes of a column"
+    },
+    "Column-set-details-single": {
+        "prefix": "crud>setColumnDetails",
+        "body": [
+            "\\$this->crud->setColumnDetails(",
+            "    ${1:column_name},",
+            "    ${2:['attribute' => 'value']});"
+        ],
+        "description": "change the attributes of a column"
+    },
+    "Column-set-details-multiple": {
+        "prefix": "crud>setColumnsDetails",
+        "body": [
+            "\\$this->crud->setColumnDetails(",
+            "    ${1:['column_1', 'column_2']},",
+            "    ${2:['attribute' => 'value']});"
+        ],
+        "description": "change the attributes of multiple columns"
+    },
+    "Column-set-override": {
+        "prefix": "crud>setColumns",
+        "body": [
+            "\\$this->crud->setColumns([",
+            "    ${1:col_1},",
+            "    ${2:col_2}]);"
+        ],
+        "description": "forget what columns have been previously defined, only use these columns"
+    },
+    "Column-add-before": {
+        "prefix": "crud>addColumnBefore",
+        "body": [
+            "\\$this->crud->addColumn(",
+            "    ${1:col})->beforeColumn('${2:name}');"
+        ],
+        "description": "add this column before a given column"
+    },
+    "Column-add-after": {
+        "prefix": "crud>addColumnAfter",
+        "body": [
+            "\\$this->crud->addColumn(",
+            "    ${1:col})->afterColumn('${2:name}');"
+        ],
+        "description": "add this column after a given column"
+    },
+    "Column-add-first": {
+        "prefix": "crud>addColumnfirst",
+        "body": [
+            "\\$this->crud->addColumn(",
+            "    ${1:col})->makeFirstColumn();"
+        ],
+        "description": "make this column the first one in the list"
+    }
+}

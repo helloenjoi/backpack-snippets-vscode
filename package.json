@@ -1,0 +1,60 @@
+{
+    "name": "backpack-snippets",
+    "displayName": "Backpack for Laravel 3.5 Snippets",
+    "description": "Backpack for Laravel 3.5 Snippets for Visual Studio Code",
+    "version": "0.9.0",
+    "publisher": "helloenjoi",
+    "author": {
+        "name": "Edward Narvaez Jr",
+        "email": "ednarvaezjr@gmail.com",
+        "url": "https://helloenjoi.com"
+    },
+    "homepage": "https://github.com/helloenjoi/backpack-snippets-vscode",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/helloenjoi/backpack-snippets-vscode"
+    },
+    "bugs": {
+        "url": "https://github.com/helloenjoi/backpack-snippets-vscode/issues"
+    },
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "keywords": [
+        "backpack",
+        "laravel",
+        "snippet"
+    ],
+    "icon": "images/icon.png",
+    "galleryBanner": {
+        "color": "#f66f62",
+        "theme": "dark"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "php",
+                "path": "./snippets/columns.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/column-types.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/fields.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/field-types.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/crud.json"
+            }
+        ]
+    }
+}
