@@ -1,0 +1,276 @@
+{
+    "crud-add-clause": {
+        "prefix": "crud>addClause",
+        "body": [
+            "\\$this->crud->addClause(${1:clause});"
+        ],
+        "description": "change what entries are shown in the table view; this allows developers to forcibly change the query used by the table view, as opposed to filters, that allow users to change the query with new inputs;"
+    },
+    "crud-group": {
+        "prefix": "crud>groupBy",
+        "body": [
+            "\\$this->crud->groupBy();"
+        ],
+        "description": "shorthand to add a groupBy clause to the query"
+    },
+    "crud-limit": {
+        "prefix": "crud>limit",
+        "body": [
+            "\\$this->crud->limit();"
+        ],
+        "description": "shorthand to add a limit clause to the query"
+    },
+    "crud-order": {
+        "prefix": "crud>orderBy",
+        "body": [
+            "\\$this->crud->orderBy();"
+        ],
+        "description": "shorthand to add an orderBy clause to the query"
+    },
+    "crud-reorder-enable": {
+        "prefix": "crud>reorderOn",
+        "body": [
+            "\\$this->crud->enableReorder('${1:relationship_name}', '${2:3}');",
+            "// NOTE: the second parameter is the maximum nesting depth; this example will prevent the user from creating trees deeper than 3 levels;",
+            "// NOTE: you also need to do allow access to the right users (allowAccess)"
+        ],
+        "description": "enable the Reorder functionality"
+    },
+    "crud-reorder-disable": {
+        "prefix": "crud>reorderOff",
+        "body": [
+            "\\$this->crud->disableReorder();"
+        ],
+        "description": "disable the Reorder functionality"
+    },
+    "crud-reorder": {
+        "prefix": "crud>reorderChk",
+        "body": [
+            "\\$this->crud->isReorderEnabled();"
+        ],
+        "description": "returns true/false if the Reorder operation is enabled or not"
+    },
+    "crud-revisions": {
+        "prefix": "crud>revisions",
+        "body": [
+            "\\$this->crud->allowAccess('revisions');"
+        ],
+        "description": "A.k.a. Audit Trail. Tracks all changes to an entry and provides an interface to revert to a previous state. In order to use this, you also need to use \\Venturecraft\\Revisionable\\RevisionableTrait;. Please check out the Revision Operation for more info."
+    },
+    "crud-access": {
+        "prefix": "crud>access",
+        "body": [
+            "\\$this->crud->${1:|allow,deny|}Access('${2:|show,edit,create,list,reorder,revisions,clone|}');",
+            "// use an array [] for multiple items"
+        ],
+        "description": "Prevent or allow users from accessing different CRUD operations."
+    },
+    "crud-access-check": {
+        "prefix": "crud>accessCheck",
+        "body": [
+            "\\$this->crud->$hasAccess('${2:|show,edit,create,list,reorder,revisions|}'); // returns true/false",
+            "// use an array [] for multiple items"
+        ],
+        "description": "check if the current user has access to one or multiple operations"
+    },
+    "crud-access-fail": {
+        "prefix": "crud>accessCheck",
+        "body": [
+            "\\$this->crud->hasAccessOrFail('${1:|show,edit,create,list,reorder,revisions|}'); // throws 403 error",
+            "// use an array [] for multiple items"
+        ],
+        "description": "check if the current user has access to one or multiple operations"
+    },
+    "crud-access-multi": {
+        "prefix": "crud>accessCheck",
+        "body": [
+            "\\$this->crud->hasAccessTo${1:|All,Any|}(['${2:|show,edit,create,list,reorder,revisions|}', '${3:|show,edit,create,list,reorder,revisions|}']); // returns true/false",
+            "// use an array [] for multiple items"
+        ],
+        "description": "check if the current user has access to one or multiple operations"
+    },
+    "crud-eager": {
+        "prefix": "crud>eager",
+        "body": [
+            "\\$this->crud->with('${1:relationship_name}');"
+        ],
+        "description": "when the current entry is loaded (in any operation) also get its relationships, so that only one query is made to the database per entry"
+    },
+    "crud-view": {
+        "prefix": "crud>view",
+        "body": [
+            "\\$this->crud->set${1:|Edit,Create,List,Reorder,Revisions,RevisionsTimeline,DetailsRow|}View('${2:your-view}');"
+        ],
+        "description": "set the view for a certain CRUD operation or feature"
+    },
+    "crud-view-edit": {
+        "prefix": "crud>vEdit",
+        "body": [
+            "\\$this->crud->setEditView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-create": {
+        "prefix": "crud>vCreate",
+        "body": [
+            "\\$this->crud->setCreateView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-list": {
+        "prefix": "crud>vList",
+        "body": [
+            "\\$this->crud->setListView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-reorder": {
+        "prefix": "crud>vReorder",
+        "body": [
+            "\\$this->crud->setReorderView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-revision": {
+        "prefix": "crud>vRevision",
+        "body": [
+            "\\$this->crud->setRevisionsView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-timeline": {
+        "prefix": "crud>vTimeline",
+        "body": [
+            "\\$this->crud->setRevisionsTimelineView('${1:your-view}');"
+        ],
+        "description": ""
+    },
+    "crud-view-details": {
+        "prefix": "crud>vDetails",
+        "body": [
+            "\\$this->crud->setDetailsRowView('${1:your-view}');"
+        ],
+        "description": "set the view for a certain CRUD operation or feature"
+    },
+    "crud-get-entry": {
+        "prefix": "crud>getEntry",
+        "body": [
+            "\\$this->crud->getEntry(${1:entry_id});"
+        ],
+        "description": "get a certain entry of the current model type"
+    },
+    "crud-get-entries": {
+        "prefix": "crud>getEntries",
+        "body": [
+            "\\$this->crud->getEntries();"
+        ],
+        "description": "get all entries using the current CRUD query"
+    },
+    "crud-get-fields": {
+        "prefix": "crud>getFields",
+        "body": [
+            "\\$this->crud->getFields(${1:create/update/both});"
+        ],
+        "description": "get all fields for a certain operation, or for both"
+    },
+    "crud-get-current": {
+        "prefix": "crud>getCurrent",
+        "body": [
+            "\\$this->crud->getCurrentEntry();",
+            "// ex: in your update() method, after calling parent::updateCrud()"
+        ],
+        "description": "get the current entry, for operations that work on a single entry"
+    },
+    "crud-get-operation": {
+        "prefix": "crud>getOperation",
+        "body": [
+            "\\$this->crud->getOperation();"
+        ],
+        "description": "get the name of the operation that is currently being performed"
+    },
+    "crud-set-operation": {
+        "prefix": "crud>setOperation",
+        "body": [
+            "\\$this->crud->setOperation('${1:ListEntries}');"
+        ],
+        "description": "set the name of the operation that is currently being performed"
+    },
+    "crud-get-action": {
+        "prefix": "crud>getActionMethod",
+        "body": [
+            "\\$this->crud->getActionMethod();"
+        ],
+        "description": "returns the method on the controller that was called by the route; ex: create(), update(), edit() etc;"
+    },
+    "crud-is-action": {
+        "prefix": "crud>actionIs",
+        "body": [
+            "\\$this->crud->actionIs('${1:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "checks if the given controller method is the one called by the route"
+    },
+    "crud-get-title": {
+        "prefix": "crud>getTitle",
+        "body": [
+            "\\$this->crud->getTitle('${1:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "get the Title for the specified action"
+    },
+    "crud-get-heading": {
+        "prefix": "crud>getHeading",
+        "body": [
+            "\\$this->crud->getHeading('${1:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "get the Heading for the specified action"
+    },
+    "crud-get-subheading": {
+        "prefix": "crud>getSubheading",
+        "body": [
+            "\\$this->crud->getSubheading('${1:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "get the Subheading for the specified action"
+    },
+    "crud-set-title": {
+        "prefix": "crud>setTitle",
+        "body": [
+            "\\$this->crud->setTitle('${1:some string}', '${2:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "set the Title for the specified action"
+    },
+    "crud-set-heading": {
+        "prefix": "crud>setHeading",
+        "body": [
+            "\\$this->crud->setHeading('${1:some string}', '${2:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "set the Heading for the specified action"
+    },
+    "crud-set-subheading": {
+        "prefix": "crud>setSubheading",
+        "body": [
+            "\\$this->crud->setSubheading('${1:some string}', '${2:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "set the Subheading for the specified action"
+    },
+    "crud-set-model": {
+        "prefix": "crud>setModel",
+        "body": [
+            "\\$this->crud->setModel('${1:some string}', '${2:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "set the Eloquent object that should be used for all operations"
+    },
+    "crud-set-route": {
+        "prefix": "crud>setRoute",
+        "body": [
+            "\\$this->crud->setRoute('${1:some string}', '${2:|show,edit,create,list,reorder,revisions|}');"
+        ],
+        "description": "set the main route to this CRUD"
+    },
+    "crud-set-entity": {
+        "prefix": "crud>setEntityNameStrings",
+        "body": [
+            "\\$this->crud->setEntityNameStrings('${1:example}', '${2:examples}');"
+        ],
+        "description": "set how the entity name should be shown to the user, in singular and in plural"
+    }
+}
+

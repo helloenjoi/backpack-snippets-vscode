@@ -37,7 +37,7 @@
         "snippets": [
             {
                 "language": "php",
-                "path": "./snippets/columns.json"
+                "path": "./snippets/buttons.json"
             },
             {
                 "language": "php",
@@ -45,7 +45,11 @@
             },
             {
                 "language": "php",
-                "path": "./snippets/fields.json"
+                "path": "./snippets/columns.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/crud.json"
             },
             {
                 "language": "php",
@@ -53,7 +57,15 @@
             },
             {
                 "language": "php",
-                "path": "./snippets/crud.json"
+                "path": "./snippets/fields.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/filters.json"
+            },
+            {
+                "language": "php",
+                "path": "./snippets/options.json"
             }
         ]
     }

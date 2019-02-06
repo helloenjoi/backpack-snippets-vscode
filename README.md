@@ -1,11 +1,11 @@
 # Laravel Backpack VS Code Snippets
-Version 0.9 supporting Laravel Backpack 3.5
+Version 1.0 supporting Laravel Backpack 3.5
 [`Laravel Backpack VS Code snippets`](https://marketplace.visualstudio.com/items?itemName=helloenjoi.backpack-snippets) extension for Visual Studio Code.
 [`Laravel Backpack`](https://backpackforlaravel.com/docs/3.5/introduction) custom admin panel for Laravel.
 
 ## Usage
 
-Snippet prefix example: `crud>`, `col>`, `field>`
+Snippet prefix example: `crud>`, `col>`, `field>`, `filter>`
 
 Use tab to jump through variables. Enjoy auto capitalization of labels! (first letter only sorry)
 

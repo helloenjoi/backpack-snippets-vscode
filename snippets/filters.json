@@ -1,0 +1,203 @@
+{
+    "Filters-add-single": {
+        "prefix": "crud>addFilter",
+        "body": [
+            "\\$this->crud->addFilter(${1:options}, ${2:values}, ${3:filter_logic})"
+        ],
+        "description": "add a filter, at the end of the stack"
+    },
+    "Filter-remove-single": {
+        "prefix": "crud>removeFilter",
+        "body": "\\$this->crud->removeFilter('${1:filter_name}');",
+        "description": "remove a filter from the stack"
+    },
+    "Filter-remove-all": {
+        "prefix": "crud>removeFilters",
+        "body": "\\$this->crud->removeAllFilters();",
+        "description": "remove all filters"
+    },
+    "Filter-get-all": {
+        "prefix": "crud>getFilters",
+        "body": "\\$this->crud->filters();",
+        "description": "get all filters"
+    },
+    "Filters-simple": {
+        "prefix": "filter>simple",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:active}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'simple',",
+                "],",
+                "false,",
+                "function() { //if the filter is enabled",
+                    "\\$this->crud->addClause('${2:active}'); // apply the '$2' eloquent scope",
+                "});"
+        ],
+        "description": "Only shows a label and can be toggled on/off. Useful for things like active/inactive and easily paired with Eloquent Scopes."
+    },
+    "Filters-text": {
+        "prefix": "filter>text",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:description}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'text',",
+                "],",
+                "false,",
+                "function(\\$value) { //if the filter is enabled",
+                    "\\$this->crud->addClause('where', '${2:description}', 'LIKE', '%\\$value%')",
+                "});"
+        ],
+        "description": "Shows a text input. Most useful for letting the user filter through information that not shown as a column in the CRUD table - otherwise they could just use the DataTables search field."
+    },
+    "Filters-date": {
+        "prefix": "filter>date",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:date}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'Date',",
+                "],",
+                "false,",
+                "function(\\$value) { //if the filter is enabled",
+                    "\\$this->crud->addClause('where', '${2:date}', '\\$value')",
+                "});"
+        ],
+        "description": "Show a datepicker. The user can select one day."
+    },
+    "Filters-date-range": {
+        "prefix": "filter>dateRange",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:date_range}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'date_range',",
+                "],",
+                "false,",
+                "function(\\$value) { //if the filter is enabled",
+                    "\\$dates = json_decode(\\$value);",
+                    "// set the table column to be filtered",
+                    "\\$this->crud->addClause('where', '${2:date}', '>=', \\$dates->from);",
+                    "\\$this->crud->addClause('where', '$2', '<=', \\$dates->to . ' 23:59:59');",
+                "});"
+        ],
+        "description": "Show a daterange picker. The user can select a start date and an end date."
+    },
+    "Filters-dropdown": {
+        "prefix": "filter>dropdown",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:status}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'dropdown',",
+                "], function() {",
+                "   return [",
+                "       1 => 'In stock',",
+                "       2 => 'In provider stock',",
+                "       3 => 'Available upon ordering',",
+                "       4 => 'Not available',",
+                "       ]; //these are sample key => value pairs",
+                "}, function(\\$value) { //if the filter is enabled",
+                "\\$this->crud->addClause('where', '${2:status}', '\\$value')",
+                "});"
+        ],
+        "description": "Shows a list of elements (that you provide) in a dropdown. The user can only select one of these elements."
+    },
+    "Filters-select2": {
+        "prefix": "filter>select2",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:status}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'select2',",
+                "], [",
+                "   1 => 'In stock',",
+                "   2 => 'In provider stock',",
+                "   3 => 'Available upon ordering',",
+                "   4 => 'Not available',",
+                "   //these are sample key => value pairs",
+                "], function(\\$value) { //if the filter is enabled",
+                "   \\$this->crud->addClause('where', '${2:status}', '\\$value')",
+                "});"
+        ],
+        "description": "Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements)."
+    },
+    "Filters-select2-multi": {
+        "prefix": "filter>select2multi",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:status}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'select2_multiple',",
+                "], [",
+                "   1 => 'In stock',",
+                "   2 => 'In provider stock',",
+                "   3 => 'Available upon ordering',",
+                "   4 => 'Not available',",
+                "   //these are sample key => value pairs",
+                "], function(\\$value) { //if the filter is enabled",
+                "   foreach (json_decode(\\$values) as \\$key => \\$value) {",
+                "   \\$this->crud->addClause('${2:|where,orWhere|}', '${3:status}', '\\$value')",
+                "   }",
+                "});"
+        ],
+        "description": "Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements)Shows a select2 and allows the user to select one or more items from the list or search for an item."
+    },
+    "Filters-select2-ajax": {
+        "prefix": "filter>select2ajax",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:category}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'select2_ajax',",
+                "    'placeholder' => 'pick a $1',",
+                "],",
+                "url('admin/test/ajax-category-options'), // the ajax route",
+                "function(\\$value) { //if the filter is enabled",
+                "   \\$this->crud->addClause('where', '${2:category_id}', '\\$value')",
+                "});"
+        ],
+        "description": "Shows a select2 and allows the user to select one item from the list or search for an item. Useful when the values list is long (over 10 elements)Shows a select2 and allows the user to select one or more items from the list or search for an item."
+    },
+    "Filters-range": {
+        "prefix": "filter>range",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:number}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/} Range',",
+                "    'label_from' => '${2:min value}',",
+                "    'label_to' => '${3:max value}',",
+                "    'type' => 'range',",
+                "],",
+                "false,",
+                "function(\\$value) { //if the filter is enabled",
+                "    \\$range = json_decode(\\$value);",
+                "    if (\\$range->from) {",
+                "        \\$this->crud->addClause('where', '$1', '>=', (float) \\$range->from);",
+                "    }",
+                "    if (\\$range->to) {",
+                "        \\$this->crud->addClause('where', '$1', '<=', (float) \\$range->to);",
+                "    }",
+                "});"
+        ],
+        "description": "Shows two number inputs, for min and max."
+    },
+    "Filters-view": {
+        "prefix": "filter>view",
+        "body": [
+            "\\$this->crud->addFilter([",
+                "    'name' => '${1:category}',",
+                "    'label' => '${1/(.*)$/${1:/capitalize}/}',",
+                "    'type' => 'view',",
+                "    'view' => '${2:package::columns.column_type_name}', // or path to blade file",
+                "    'placeholder' => 'pick a $1',",
+                "],",
+                "false,",
+                "function(\\$value) { //if the filter is enabled",
+                    "\\$this->crud->addClause('where', '${3:category_id}', '\\$value')",
+                "});"
+        ],
+        "description": "Display any custom column filter you want. Usually used by Backpack package developers, to use views from within their packages, instead of having to publish them."
+    }
+}

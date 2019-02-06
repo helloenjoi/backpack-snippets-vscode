@@ -1,0 +1,40 @@
+{
+    "crud-button": {
+        "prefix": "crud>btn",
+        "body": [
+            "\\$this->crud->addButton('${1:|top,line,bottom|}', '${2:name}', '${3:|view,model_function|}', ${4:content}, '${5:|beginning,end|}');",
+            "// add a button; possible types are: view, model_function"
+        ],
+        "description": "Add a button"
+    },
+    "crud-button-model": {
+        "prefix": "crud>btnModFunct",
+        "body": [
+            "\\addButtonFromModelFunction('${1:|top,line,bottom|}', '${2:name}', '${3:model_function_name}', '${4:|beginning,end|}');"
+        ],
+        "description": "add a button whose HTML is returned by a method in the CRUD model"
+    },
+    "crud-button-view": {
+        "prefix": "crud>btnView",
+        "body": [
+            "\\addButtonFromView('${1:|top,line,bottom|}', '${2:name}', '${3:view}', '${4:|beginning,end|}');",
+            "//add a button whose HTML is in a view placed at resources\\views\\vendor\\backpack\\crud\\buttons"
+        ],
+        "description": "add a button whose HTML is in a view placed at resources\\views\\vendor\\backpack\\crud\\buttons"
+    },
+    "crud-button-rem": {
+        "prefix": "crud>btnRemove",
+        "body": [
+            "\\$this->crud->removeButton('${1:name}');"
+        ],
+        "description": "remove a button"
+    },
+    "crud-button-rem-stack": {
+        "prefix": "crud>btnRemoveStack",
+        "body": [
+            "\\$this->crud->removeButtonFromStack('${1:name}','${2:|top,line,bottom|}');"
+        ],
+        "description": "remove a button for a certain stack (top, line, bottom)"
+    }
+}
+

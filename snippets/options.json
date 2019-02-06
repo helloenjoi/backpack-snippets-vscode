@@ -1,0 +1,54 @@
+{
+    "crud-clone": {
+        "prefix": "crud>cloneBulk",
+        "body": [
+            "\\$this->crud->enableBulkActions(); // if you haven't already",
+            "\\$this->crud->allowAccess('clone');",
+            "\\$this->crud->addButton('bottom', 'bulk_clone', 'view', 'crud::buttons.bulk_clone', 'beginning');"
+        ],
+        "description": "Show export to PDF, CSV, XLS and Print buttons on the table view. Please note it will only export the current page of results. So in order to export all entries the user needs to make the current page show 'All' entries from the top-left picker."
+    },
+    "crud-export": {
+        "prefix": "crud>exportButtons",
+        "body": [
+            "\\$this->crud->$this->crud->enableExportButtons();"
+        ],
+        "description": "Show export to PDF, CSV, XLS and Print buttons on the table view. Please note it will only export the current page of results. So in order to export all entries the user needs to make the current page show 'All' entries from the top-left picker."
+    },
+    "crud-set-page-default": {
+        "prefix": "crud>pageDefault",
+        "body": [
+            "\\$this->crud->setDefaultPageLength(${1:10});"
+        ],
+        "description": "change the number of items per page in the list view"
+    },
+    "crud-set-page": {
+        "prefix": "crud>pageLengths",
+        "body": [
+            "\\$this->crud->setPageLengthMenu([${1:100, 200, 300}]);"
+        ],
+        "description": "change the entire page length menu in the list vie"
+    },
+    "crud-set-actions": {
+        "prefix": "crud>setActions",
+        "body": [
+            "\\$this->crud->setActionsColumnPriority(10000);"
+        ],
+        "description": "make the actions column (in the table view) hide when not enough space is available, by giving it an unreasonable priority"
+    },
+    "crud-responsive": {
+        "prefix": "crud>opt>responsive",
+        "body": [
+            "\\$this->crud->${1:|enable,disable|}ResponsiveTable();"
+        ],
+        "description": "make/stop the listEntries view from showing/hiding columns depending on viewport width"
+    },
+    "crud-persistent": {
+        "prefix": "crud>opt>persistent",
+        "body": [
+            "\\$this->crud->${1:|enable,disable|}PersistentTable();"
+        ],
+        "description": "make/stop the listEntries from remembering the filters, search and pagination for a user, even if he leaves the page"
+    }
+}
+
